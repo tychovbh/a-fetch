@@ -1,0 +1,16 @@
+{
+  "name": "jfa-example",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Tycho van Berge Henegouwen",
+  "license": "MIT",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "express": "^4.17.1",
+    "jfa": "link:..",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
