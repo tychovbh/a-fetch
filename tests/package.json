@@ -1,5 +1,5 @@
 {
-  "name": "s-fetch-example",
+  "name": "a-fetch-example",
   "version": "0.0.0",
   "main": "index.js",
   "author": "Tycho van Berge Henegouwen",
@@ -7,7 +7,7 @@
   "dependencies": {
     "assert": "^2.0.0",
     "express": "^4.17.1",
-    "s-fetch": "link:..",
+    "a-fetch": "link:..",
     "node-fetch": "^2.6.1"
   },
   "scripts": {

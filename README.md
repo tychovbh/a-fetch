@@ -1,22 +1,22 @@
-# s-fetch
+# a-fetch
 
-> Javascript Service Fetch
+> Javascript Api Fetch
 
-[![NPM](https://img.shields.io/npm/v/s-fetch.svg)](https://www.npmjs.com/package/s-fetch) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/a-fetch.svg)](https://www.npmjs.com/package/a-fetch) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
-Package to fetch your Service (API) with easily used methods like index, show, store, update and delete
+Package to fetch your API with easily used methods like index, show, store, update and delete
 
 ## Install
 
 ```bash
-npm install --save s-fetch
+npm install --save a-fetch
 ```
 
 ## Usage
 
 ```jsx
-require('s-fetch')
+require('a-fetch')
 
 ```
 

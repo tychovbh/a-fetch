@@ -2,8 +2,8 @@ const express = require('express')
 let assert = require('assert')
 const app = express()
 const port = 3000
-const Fetcher = require('s-fetch')
-const Router = require('s-fetch').Router
+const Fetcher = require('a-fetch')
+const Router = require('a-fetch').Router
 
 Router.baseURL('https://jsonplaceholder.typicode.com')
     .index('todos', '/todos')
