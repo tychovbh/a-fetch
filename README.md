@@ -1,22 +1,23 @@
-# jfa
+# s-fetch
 
-> Javascript Api Fetch
+> Javascript Service Fetch
 
-[![NPM](https://img.shields.io/npm/v/jfa.svg)](https://www.npmjs.com/package/jfa) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/s-fetch.svg)](https://www.npmjs.com/package/s-fetch) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
-Package to fetch your API with easily used methods like index, show, store, update and delete
+Package to fetch your Service (API) with easily used methods like index, show, store, update and delete
 
 ## Install
 
 ```bash
-npm install --save jfa
+npm install --save s-fetch
 ```
 
 ## Usage
 
 ```jsx
-require('jfa')
+require('s-fetch')
+
 ```
 
 ## Tests

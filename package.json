@@ -1,9 +1,9 @@
 {
-  "name": "jfa",
+  "name": "s-fetch",
   "version": "1.0.0",
   "description": "Easily fetch your API",
   "main": "src/index.js",
-  "repository": "https://github.com/tychovbh/jfa",
+  "repository": "https://github.com/tychovbh/s-fetch",
   "author": "Tycho van Berge Henegouwen <info@bespokeweb.nl>",
   "license": "MIT",
   "scripts": {

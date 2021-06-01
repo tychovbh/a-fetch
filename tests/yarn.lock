@@ -359,7 +359,7 @@ is-symbol@^1.0.2:
   dependencies:
     has-symbols "^1.0.0"
 
-"jfa@link:..":
+"s-fetch@link:..":
   version "0.0.0"
   uid ""
 

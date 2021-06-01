@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
-// import Fetcher, {Router} from 'jfa'
-const Fetcher = require('jfa').default
-const Router = require('jfa').Router
-const Variables = require('jfa').Variables
+import Fetcher, {Router} from 's-fetch'
+// const Fetcher = require('s-fetch').default
+// const Router = require('s-fetch').Router
 
 Router.baseURL('http://localhost:8000', 'sanctum/csrf-cookie')
     .loginUrl('login')
