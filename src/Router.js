@@ -5,6 +5,7 @@ class Router {
         this.csrf_url = ''
         this.login_url = ''
         this.logout_url = ''
+        this.bearer_token = ''
         this.client = null
         this.routes = {
             show: {},
@@ -63,6 +64,11 @@ class Router {
 
     csrfURL(csrf_url) {
         this.csrf_url = csrf_url
+        return this
+    }
+
+    bearerToken(bearer_token) {
+        this.bearer_token = bearer_token
         return this
     }
 

@@ -40,6 +40,15 @@ app.get('/categories', (req, res) => {
         assert.strictEqual(response.data.email, 'info@bespokeweb.nl')
     })
 
+    Fetcher.api('laravel-api')
+        .show('user', {bearer_token: '21|oxlYLHz9IDRoMNbAzLfWRwoNRXv1s5L7fvvsA63P'})
+        .then(response => {
+            assert.strictEqual(response.loading, false)
+            assert.strictEqual(response.data.email, 'info@bespokeweb.nl')
+        })
+
+    return res.send('All tests passed!')
+
     Fetcher.api('laravel-api').index('categories', {paginate: 5}, [{id: 1, name: 'kids', label: 'Kids'}]).then(response => {
         assert.strictEqual(response.loading, false)
         assert.strictEqual(response.data.length, 6)

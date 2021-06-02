@@ -8,10 +8,15 @@ class Request {
         this.Router = Router
         this.log = log
         this.client = Router.client || Client
-        this.token = ''
+        this.bearer_token = Router.bearer_token
     }
 
     prepareFetch(type, name, params = {}) {
+        if (params.bearer_token) {
+            this.bearer_token = params.bearer_token
+            delete params.bearer_token
+        }
+
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
@@ -67,8 +72,8 @@ class Request {
     config() {
         let config = {headers: {}}
 
-        if (this.token) {
-            config.headers.Authorization = `Bearer ${this.token}`
+        if (this.bearer_token !== '') {
+            config.headers.Authorization = `Bearer ${this.bearer_token}`
         }
 
         return config
@@ -179,8 +184,8 @@ class Request {
         return this.fetch('post', this.Router.logout_url, params)
     }
 
-    bearerToken(token) {
-        this.token = token
+    bearerToken(bearer_token) {
+        this.bearer_token = bearer_token
         return this
     }
 }
