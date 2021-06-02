@@ -4,6 +4,11 @@ const app = express()
 const port = 3000
 const Fetcher = require('a-fetch')
 const Router = require('a-fetch').Router
+const axios = require('axios')
+
+const client = axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com'
+})
 
 Router.baseURL('https://jsonplaceholder.typicode.com')
     .index('todos', '/todos')
@@ -18,6 +23,10 @@ Router.api('laravel-api', 'http://127.0.0.1:8000')
     .store('category', '/api/categories')
     .update('category', '/api/categories/{id}')
     .delete('category', '/api/categories/{id}')
+
+Router.api('todos')
+    .axiosClient(client)
+    .index('todos', '/todos')
 
 app.get('/categories', (req, res) => {
     Fetcher.api('laravel-api').index('categories', {paginate: 5}, [{id: 1, name: 'kids', label: 'Kids'}]).then(response => {
@@ -90,6 +99,11 @@ app.get('/categories', (req, res) => {
 
 app.get('/', (req, res) => {
     Fetcher.index('todos').then(response => {
+        assert.strictEqual(response.data.length, 200, 'Cannot index')
+    })
+
+    // Test custom axios client
+    Fetcher.api('todos').index('todos').then(response => {
         assert.strictEqual(response.data.length, 200, 'Cannot index')
     })
 

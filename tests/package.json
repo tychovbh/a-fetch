@@ -5,9 +5,10 @@
   "author": "Tycho van Berge Henegouwen",
   "license": "MIT",
   "dependencies": {
-    "assert": "^2.0.0",
-    "express": "^4.17.1",
     "a-fetch": "link:..",
+    "assert": "^2.0.0",
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
     "node-fetch": "^2.6.1"
   },
   "scripts": {

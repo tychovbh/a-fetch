@@ -1,12 +1,13 @@
 const Response = require('./Response')
 const {form, request} = require('js-expansion')
 const is_server = typeof window === 'undefined'
-
+const Client = require('./Client')
 
 class Request {
     constructor(Router, log = false) {
         this.Router = Router
         this.log = log
+        this.client = Router.client || Client
     }
 
     prepareFetch(type, name, params = {}) {
@@ -55,7 +56,7 @@ class Request {
     }
 
     request(options) {
-        return this.Router.client[options.method](options.url, options.data)
+        return this.client[options.method](this.Router.base_url + options.url, options.data || {})
     }
 
     csrfRequired(options) {
@@ -67,7 +68,10 @@ class Request {
             console.log('Request with CSRF')
         }
 
-        return this.Router.client.get(this.Router.csrf_url).then(() => {
+        return this.request({
+            method: 'get',
+            url: this.Router.csrf_url
+        }).then(() => {
             return this.request(options)
         })
     }

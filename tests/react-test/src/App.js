@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Fetcher, {Router} from 'a-fetch'
-// const Fetcher = require('a-fetch').default
-// const Router = require('a-fetch').Router
 
-Router.baseURL('http://localhost:8000', 'sanctum/csrf-cookie')
-    .loginUrl('login')
-    .logoutUrl('logout')
+Router.baseURL('http://localhost:8000')
+    .csrfURL('/sanctum/csrf-cookie')
+    .loginURL('/login')
+    .logoutURL('/logout')
     .index('categories', '/api/categories')
     .show('category', '/api/categories/{id}')
     .store('category', '/api/categories')

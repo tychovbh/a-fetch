@@ -1,5 +1,3 @@
-const axios = require('axios')
-
 class Router {
     constructor() {
         this.apis = {}
@@ -7,7 +5,7 @@ class Router {
         this.csrf_url = ''
         this.login_url = ''
         this.logout_url = ''
-        this.client = axios.create({})
+        this.client = null
         this.routes = {
             show: {},
             index: {},
@@ -19,7 +17,7 @@ class Router {
 
     addRoute(type, name, request, options = {}) {
         this.routes[type][name] = {
-            request: this.base_url + request,
+            request: request,
             options
         }
         return this
@@ -45,30 +43,26 @@ class Router {
         return this.addRoute('delete', name, request, options)
     }
 
-    clientCreate(base_url, csrf_url = '') {
-        return axios.create({
-            baseURL: base_url,
-            withCredentials: !!csrf_url
-        })
-    }
-
     baseURL(base_url, csrf_url = '', login_url = '', logout_url = '') {
-        this.current = ''
         this.base_url = base_url
         this.csrf_url = csrf_url
         this.login_url = login_url
         this.logout_url = logout_url
-        this.client = this.clientCreate(base_url, csrf_url)
         return this
     }
 
-    loginUrl(login_url) {
+    loginURL(login_url) {
         this.login_url = login_url
         return this
     }
 
-    logoutUrl(logout_url) {
+    logoutURL(logout_url) {
         this.logout_url = logout_url
+        return this
+    }
+
+    csrfURL(csrf_url) {
+        this.csrf_url = csrf_url
         return this
     }
 
@@ -77,6 +71,11 @@ class Router {
         router.baseURL(base_url, csrf_url, login_url, logout_url)
         this.apis[name] = router
         return router
+    }
+
+    axiosClient(client) {
+        this.client = client
+        return this
     }
 
     getApi(name) {
