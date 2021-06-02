@@ -40,6 +40,10 @@ class Fetcher {
         return Fetcher.request(debug).logout(params)
     }
 
+    static bearerToken(token, debug = false) {
+        return Fetcher.request(debug).bearerToken(token)
+    }
+
     static collection() {
         return Variables.collection
     }

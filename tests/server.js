@@ -18,17 +18,28 @@ Router.baseURL('https://jsonplaceholder.typicode.com')
     .delete('todos', '/todos/{id}')
 
 Router.api('laravel-api', 'http://127.0.0.1:8000')
+    // Category routes
     .index('categories', '/api/categories')
     .show('categories', '/api/categories/{id}')
     .store('category', '/api/categories')
     .update('category', '/api/categories/{id}')
     .delete('category', '/api/categories/{id}')
+    // User routes
+    .show('user', '/api/user')
 
 Router.api('todos')
     .axiosClient(client)
     .index('todos', '/todos')
 
 app.get('/categories', (req, res) => {
+    Fetcher.api('laravel-api')
+        .bearerToken('21|oxlYLHz9IDRoMNbAzLfWRwoNRXv1s5L7fvvsA63P')
+        .show('user')
+        .then(response => {
+        assert.strictEqual(response.loading, false)
+        assert.strictEqual(response.data.email, 'info@bespokeweb.nl')
+    })
+
     Fetcher.api('laravel-api').index('categories', {paginate: 5}, [{id: 1, name: 'kids', label: 'Kids'}]).then(response => {
         assert.strictEqual(response.loading, false)
         assert.strictEqual(response.data.length, 6)
@@ -37,9 +48,9 @@ app.get('/categories', (req, res) => {
         assert.strictEqual(response.data[0].name, 'kids')
     })
 
-    Fetcher.api('laravel-api').show('categories', {id: 3}).then(response => {
+    Fetcher.api('laravel-api').show('categories', {id: 2}).then(response => {
         assert.strictEqual(response.loading, false)
-        assert.strictEqual(response.data.id, 3)
+        assert.strictEqual(response.data.id, 2)
         assert.strictEqual(response.data.name, 'heren')
     })
 
@@ -69,27 +80,27 @@ app.get('/categories', (req, res) => {
         assert.strictEqual(response.data[0].name, 'kids')
     })
 
-    category = {id: 3, label: 'Heren', name: 'heren'}
-    Fetcher.api('laravel-api').update('category', category).then(response => {
+    const name = Math.floor(Math.random() * 10) + 1;
+    Fetcher.api('laravel-api').update('category', {id: 3, label: name , name}).then(response => {
         assert.strictEqual(response.loading, false)
         assert.strictEqual(response.data.id, 3)
-        assert.strictEqual(response.data.name, 'heren')
-        assert.strictEqual(response.data.label, 'Heren')
+        assert.strictEqual(response.data.name, name)
+        assert.strictEqual(response.data.label, name)
     })
 
-    Fetcher.api('laravel-api').update('category', category, [{id: 3, name: 'kids', label: 'Kids'}]).then(response => {
+    Fetcher.api('laravel-api').update('category', {id: 4, name: 'heren', label: 'heren'}, [{id: 4, name: 'kids', label: 'Kids'}]).then(response => {
         assert.strictEqual(response.loading, false)
-        assert.strictEqual(response.data[0].id, 3)
+        assert.strictEqual(response.data[0].id, 4)
         assert.strictEqual(response.data[0].name, 'heren')
         assert.strictEqual(response.data.length, 1)
     })
 
-    Fetcher.api('laravel-api').delete('category', {id: 52}).then(response => {
+    Fetcher.api('laravel-api').delete('category', {id: 21}).then(response => {
         assert.strictEqual(response.loading, false)
         assert.strictEqual(response.deleted, true)
     })
 
-    Fetcher.api('laravel-api').delete('category', {id: 53}, [{id: 53, name: 'kids', label: 'Kids'}]).then(response => {
+    Fetcher.api('laravel-api').delete('category', {id: 22}, [{id: 22, name: 'kids', label: 'Kids'}]).then(response => {
         assert.strictEqual(response.data.length, 0)
         assert.strictEqual(response.loading, false)
     })

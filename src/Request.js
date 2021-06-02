@@ -8,6 +8,7 @@ class Request {
         this.Router = Router
         this.log = log
         this.client = Router.client || Client
+        this.token = ''
     }
 
     prepareFetch(type, name, params = {}) {
@@ -22,7 +23,7 @@ class Request {
             show: 'get',
             store: 'post',
             update: 'put',
-            delete: 'delete'
+            delete: 'delete',
         }
 
         const method = methods[type]
@@ -34,7 +35,7 @@ class Request {
     fetch(method, url, params = {}) {
         let options = {
             url,
-            method
+            method,
         }
 
         if (['post', 'put'].includes(method)) {
@@ -56,7 +57,21 @@ class Request {
     }
 
     request(options) {
-        return this.client[options.method](this.Router.base_url + options.url, options.data || {})
+        const config = this.config()
+        if (options.method === 'get') {
+            return this.client[options.method](this.Router.base_url + options.url, config)
+        }
+        return this.client[options.method](this.Router.base_url + options.url, options.data || {}, config)
+    }
+
+    config() {
+        let config = {headers: {}}
+
+        if (this.token) {
+            config.headers.Authorization = `Bearer ${this.token}`
+        }
+
+        return config
     }
 
     csrfRequired(options) {
@@ -70,7 +85,7 @@ class Request {
 
         return this.request({
             method: 'get',
-            url: this.Router.csrf_url
+            url: this.Router.csrf_url,
         }).then(() => {
             return this.request(options)
         })
@@ -162,6 +177,11 @@ class Request {
 
     logout(params = {}) {
         return this.fetch('post', this.Router.logout_url, params)
+    }
+
+    bearerToken(token) {
+        this.token = token
+        return this
     }
 }
 
