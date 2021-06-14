@@ -16,20 +16,20 @@ class Fetcher {
         return Fetcher.request(debug).index(name, params, records)
     }
 
-    static show(name, params = {}, records = [], key = 'id', debug = false) {
-        return Fetcher.request(debug).show(name, params, records, key)
+    static show(name, params = {}, debug = false) {
+        return Fetcher.request(debug).show(name, params)
     }
 
-    static store(name, params = {}, records = [], key = 'id', debug = false) {
-        return Fetcher.request(debug).store(name, params, records, key)
+    static store(name, params = {}, debug = false) {
+        return Fetcher.request(debug).store(name, params)
     }
 
-    static update(name, params = {}, records = [], key = 'id', debug = false) {
-        return Fetcher.request(debug).update(name, params, records, key)
+    static update(name, params = {}, debug = false) {
+        return Fetcher.request(debug).update(name, params)
     }
 
-    static delete(name, params = {}, records = [], key = 'id', debug = false) {
-        return Fetcher.request(debug).delete(name, params, records, key)
+    static delete(name, params = {}, debug = false) {
+        return Fetcher.request(debug).delete(name, params)
     }
 
     static login(params = {}, debug = false) {
@@ -38,6 +38,10 @@ class Fetcher {
 
     static logout(params = {}, debug = false) {
         return Fetcher.request(debug).logout(params)
+    }
+
+    static records(records = [], key = 'id', debug = false) {
+        return Fetcher.request(debug).records(records, key)
     }
 
     static bearerToken(token, debug = false) {

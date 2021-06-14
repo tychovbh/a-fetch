@@ -47,8 +47,6 @@ app.get('/categories', (req, res) => {
             assert.strictEqual(response.data.email, 'info@bespokeweb.nl')
         })
 
-    return res.send('All tests passed!')
-
     Fetcher.api('laravel-api').index('categories', {paginate: 5}, [{id: 1, name: 'kids', label: 'Kids'}]).then(response => {
         assert.strictEqual(response.loading, false)
         assert.strictEqual(response.data.length, 6)
@@ -88,6 +86,8 @@ app.get('/categories', (req, res) => {
         assert.strictEqual(response.data[0].id, 1)
         assert.strictEqual(response.data[0].name, 'kids')
     })
+
+    return res.send('All tests passed!')
 
     const name = Math.floor(Math.random() * 10) + 1;
     Fetcher.api('laravel-api').update('category', {id: 3, label: name , name}).then(response => {
@@ -136,9 +136,22 @@ app.get('/', (req, res) => {
         assert.strictEqual(response.data.id, 1, 'Cannot show')
     })
 
+    let show_collection = [{id: 1}, {id: 2}]
+    Fetcher.records([show_collection[0]]).show('todos', show_collection[1]).then(response => {
+        assert.strictEqual(response.data.id, 2, 'Cannot show')
+        assert.strictEqual(response.records.length, 2, 'Cannot update')
+        assert.strictEqual(response.records[0].id, 1, 'Cannot show')
+        assert.strictEqual(response.records[1].id, 2, 'Cannot show')
+    })
+
     let store = {title: 'delectus aut autem', completed: 'true'}
     Fetcher.store('todos', store).then(response => {
         assert.strictEqual(response.data.id, 201, 'Cannot store')
+    })
+
+    Fetcher.records().store('todos', store).then(response => {
+        assert.strictEqual(response.data.id, 201, 'Cannot store')
+        assert.deepStrictEqual(response.records, [{...store, id: 201}], 'Cannot store')
     })
 
     let update = {id: 1, title: 'delectus aut autem', completed: 'true'}
@@ -146,9 +159,23 @@ app.get('/', (req, res) => {
         assert.strictEqual(response.data.id, 1, 'Cannot update')
     })
 
-    let todo = {id: 1}
-    Fetcher.delete('todos', todo).then(response => {
+    let update_collection = [{id: 1, title: 'test1'}, {id: 2, title: 'test2'}]
+    Fetcher.records(update_collection).update('todos', {id: 2, title: 'test3'}).then(response => {
+        assert.strictEqual(response.data.id, 2, 'Cannot update')
+        assert.strictEqual(response.records.length, 2, 'Cannot update, length incorrect')
+        assert.strictEqual(response.records[0], update_collection[0], 'Cannot update, id record 1 incorrect')
+        assert.strictEqual(response.records[1].id, 2, 'Cannot update, id record 2 incorrect')
+        assert.strictEqual(response.records[1].title, 'test3', 'Cannot update, title record 2 incorrect')
+    })
+
+    Fetcher.delete('todos', {id: 1}).then(response => {
         assert.strictEqual(!!response.data, true, 'Cannot delete')
+    })
+
+    let delete_collection = [{id: 1, title: 'test1'}, {id: 2, title: 'test2'}]
+    Fetcher.records(delete_collection).delete('todos', {id: 1}).then(response => {
+        assert.strictEqual(!!response.data, true, 'Cannot delete')
+        assert.deepStrictEqual(response.records, [delete_collection[1]], 'Cannot delete')
     })
 
 

@@ -73,23 +73,16 @@ class Response
 
     static records(method, response, records, key) {
         let data_key = 'data'
-        let data = {
-            ...variables.collection,
-        }
-
         if (response[data_key]) {
-            data = {...data, ...response}
             const value = method === 'delete' ? response[data_key][key] : response[data_key]
             records = records.clone()[method](value, key)
         } else {
-            records = records.clone()[method](response, key)
+            const value = method === 'delete' ? response[key] : response
+            records = records.clone()[method](value, key)
         }
 
-        return {
-            ...data,
-            [data_key]: records,
-            loading: false,
-        }
+
+        return records
     }
 
     static errorCollection(errors, records) {

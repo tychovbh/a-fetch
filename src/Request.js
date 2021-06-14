@@ -10,6 +10,11 @@ class Request {
         this.log = log
         this.client = Router.client || Client
         this.bearer_token = Router.bearer_token
+        this.data = {
+            data: [],
+            key: 'id',
+            enabled: false,
+        }
     }
 
     prepareFetch(type, name, params = {}) {
@@ -98,76 +103,71 @@ class Request {
             .catch(error => Response.errorCollection(Response.errors(error), records))
     }
 
-    show(name, params = {}, records = [], key = 'id') {
+    show(name, params = {}) {
         return this.prepareFetch('show', name, params)
             .then(response => {
                 response = response.data
+                let data = Response.show(response)
 
-                if (records) {
-                    Response.records('save', response, records, key)
+                if (this.data.enabled) {
+                    data.records = Response.records('save', response, this.data.records, this.data.key)
                 }
 
-                return Response.show(response)
+                return data
             })
             .catch(error => {
                 error = Response.errors(error)
-                if (records.length) {
-                    return Response.errorCollection(error, records)
-                }
-
                 return Response.errorModel(error)
             })
     }
 
-    store(name, params = {}, records = [], key = 'id') {
-        return this.save('store', name, params, records, key)
+    store(name, params = {}) {
+        return this.save('store', name, params)
     }
 
-    update(name, params = {}, records = [], key = 'id') {
+    update(name, params = {}) {
         params._method = 'put'
-        return this.save('update', name, params, records, key)
+        return this.save('update', name, params)
     }
 
-    save(type, name, params = {}, records = [], key = 'id') {
+    save(type, name, params = {}) {
         return this.prepareFetch(type, name, params)
             .then(response => {
                 if (this.log) {
                     console.log('Save response', response.data)
                 }
                 response = response.data
-                if (records.length) {
-                    return Response.records('save', response, records, key)
+
+                let data = Response.model(response)
+
+                if (this.data.enabled) {
+                    data.records = Response.records('save', response, this.data.records, this.data.key)
                 }
 
-                return Response.model(response)
+                return data
             })
             .catch((error) => {
+                console.log(error)
                 error = Response.errors(error)
-                if (records.length) {
-                    Response.errorCollection(error, records)
-                }
-
                 return Response.errorModel(error)
             })
     }
 
-    delete(name, params = {}, records = [], key = 'id') {
+    delete(name, params = {}) {
         return this.prepareFetch('delete', name, params)
             .then(response => {
                 response = response.data
 
-                if (records.length) {
-                    return Response.records('delete', response, records, key)
+                let data = Response.model(response)
+
+                if (this.data.enabled) {
+                    data.records = Response.records('delete', params, this.data.records, this.data.key)
                 }
 
-                return Response.model(response)
+                return data
             })
             .catch((error) => {
                 error = Response.errors(error)
-                if (records.length) {
-                    return Response.errorCollection(error, records)
-                }
-
                 return Response.errorModel(error)
             })
     }
@@ -178,6 +178,16 @@ class Request {
 
     logout(params = {}) {
         return this.fetch('post', this.Router.logout_url, params)
+    }
+
+    records(records = [], key = 'id') {
+        this.data = {
+            key,
+            records,
+            enabled: true,
+        }
+
+        return this
     }
 
     bearerToken(bearer_token) {
