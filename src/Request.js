@@ -2,6 +2,7 @@ const Response = require('./Response')
 const {form, request} = require('js-expansion')
 const is_server = typeof window === 'undefined'
 const Client = require('./Client')
+const variables = require('./variables')
 
 class Request {
     constructor(Router, log = false) {
@@ -12,15 +13,10 @@ class Request {
     }
 
     prepareFetch(type, name, params = {}) {
-        if (params.bearer_token) {
-            this.bearer_token = params.bearer_token
-            delete params.bearer_token
-        }
-
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
-            return Response.empty(this.model, name)
+            return Response.empty(type === 'index' ? variables.collection : variables.model, name)
         }
 
         const methods = {
