@@ -19,7 +19,7 @@ class Router {
     addRoute(type, name, request, options = {}) {
         this.routes[type][name] = {
             request: request,
-            options
+            options,
         }
         return this
     }
