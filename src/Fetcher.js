@@ -49,7 +49,7 @@ class Fetcher {
     }
 
     static model() {
-        return Variables.collection
+        return Variables.model
     }
 }
 
