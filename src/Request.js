@@ -64,7 +64,7 @@ class Request {
 
     request(options) {
         const config = this.config()
-        if (options.method === 'get') {
+        if (['get', 'delete'].includes(options.method)) {
             return this.client[options.method](this.Router.base_url + options.url, config)
         }
         return this.client[options.method](this.Router.base_url + options.url, options.data || {}, config)

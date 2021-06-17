@@ -23,6 +23,13 @@ function App() {
         Fetcher.show('user').then(response => setUser(response))
     }, [])
 
+
+    function destroy() {
+        Fetcher.bearerToken('test').delete('category', {id: 1}).then(response => {
+            console.log(response)
+        })
+    }
+
     function store() {
         Fetcher.store('category', {label: 'Dames', name: 'dames'}).then(response => {
             console.log(response)
@@ -42,6 +49,7 @@ function App() {
     }
 
     return <div>
+        <button onClick={destroy}>delete</button>
         {!user.data.id && <button onClick={login}>login</button>}
         {Boolean(user.data.id) && <button onClick={logout}>logout</button>}
         <h1>User: {user.data.email}</h1>
