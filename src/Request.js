@@ -35,19 +35,25 @@ class Request {
         const method = methods[type]
         const url = request(method, route.request, params)
 
-        return this.fetch(method, url, params)
+        let headers = {}
+
+        if (route.options.form_data) {
+            headers = {'Content-Type': 'multipart/form-data'}
+            params = form(params)
+        }
+
+        return this.fetch(method, url, params, headers)
     }
 
-    fetch(method, url, params = {}) {
+    fetch(method, url, params = {}, headers = {}) {
         let options = {
             url,
             method,
+            headers
         }
 
         if (['post', 'put'].includes(method)) {
             options.data = params
-            // options.data = params
-            // options.headers = {'Content-Type': 'multipart/form-data'}
         }
 
         if (this.log) {
@@ -63,15 +69,15 @@ class Request {
     }
 
     request(options) {
-        const config = this.config()
+        const config = this.config(options)
         if (['get', 'delete'].includes(options.method)) {
             return this.client[options.method](this.Router.base_url + options.url, config)
         }
         return this.client[options.method](this.Router.base_url + options.url, options.data || {}, config)
     }
 
-    config() {
-        let config = {headers: {}}
+    config(options) {
+        let config = {headers: options.headers || {}}
 
         if (this.bearer_token !== '') {
             config.headers.Authorization = `Bearer ${this.bearer_token}`
