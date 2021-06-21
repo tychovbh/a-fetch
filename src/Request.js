@@ -97,10 +97,18 @@ class Request {
         })
     }
 
-    index(name, params = {}, records = []) {
+    index(name, params = {}) {
         return this.prepareFetch('index', name, params)
-            .then(response => Response.index(response.data, records))
-            .catch(error => Response.errorCollection(Response.errors(error), records))
+            .then(response => {
+                let data = Response.index(response.data)
+
+                if (this.data.enabled) {
+                    data.records = this.data.records.clone().concat(data.data)
+                }
+
+                return data
+            })
+            .catch(error => Response.errorCollection(Response.errors(error)))
     }
 
     show(name, params = {}) {

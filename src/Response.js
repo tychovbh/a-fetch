@@ -16,24 +16,21 @@ class Response
         })
     }
 
-    static index(response, records) {
+    static index(response) {
         let data_key = 'data'
         let data = {
             ...variables.collection,
+            loading: false
         }
 
         if (response[data_key]) {
             data = {...data, ...response}
-            records = records.clone().concat(response[data_key])
+            data[data_key] = response[data_key]
         } else {
-            records = records.clone().concat(response)
+            data[data_key] = response
         }
 
-        return {
-            ...data,
-            [data_key]: records,
-            loading: false,
-        }
+        return data
     }
 
     static show(response) {
