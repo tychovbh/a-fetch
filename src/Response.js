@@ -82,10 +82,9 @@ class Response
         return records
     }
 
-    static errorCollection(errors, records) {
+    static errorCollection(errors) {
         return {
             ...variables.collection,
-            data: records,
             errors,
             loading: false,
         }
