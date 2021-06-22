@@ -6,16 +6,19 @@ Router.baseURL('http://localhost:8000')
     .loginURL('/login')
     .logoutURL('/logout')
     .index('categories', '/api/categories')
-    .show('category', '/api/categories/{id}')
-    .store('category', '/api/categories')
-    .update('category', '/api/categories/{id}')
-    .delete('category', '/api/categories/{id}')
+    .show('categories', '/api/categories/{id}')
+    .store('categories', '/api/categories', {
+        form_data: true
+    })
+    .update('categories', '/api/categories/{id}')
+    .delete('categories', '/api/categories/{id}')
 
     .show('user', '/api/user')
 
 function App() {
     const [categories, setCategories] = useState(Fetcher.collection())
     const [user, setUser] = useState(Fetcher.model())
+    const [category, setCategory] = useState(Fetcher.model())
 
     useEffect(() => {
         Fetcher.index('categories').then(response => setCategories(response))
@@ -25,13 +28,13 @@ function App() {
 
 
     function destroy() {
-        Fetcher.bearerToken('test').delete('category', {id: 1}).then(response => {
+        Fetcher.bearerToken('test').delete('categories', {id: 1}).then(response => {
             console.log(response)
         })
     }
 
     function store() {
-        Fetcher.store('category', {label: 'Dames', name: 'dames'}).then(response => {
+        Fetcher.store('categories', {label: 'Dames', name: 'dames'}).then(response => {
             console.log(response)
         })
     }
@@ -55,7 +58,7 @@ function App() {
         <h1>User: {user.data.email}</h1>
         <ul style={{
             maxHeight: '150px',
-            overflowY: 'scroll'
+            overflowY: 'scroll',
         }}>
             {
                 categories.data.map((category, index) => <li key={index}>{category.name}</li>)
@@ -63,6 +66,41 @@ function App() {
         </ul>
         <button onClick={store}>store category</button>
 
+
+        <form onSubmit={(event) => {
+            event.preventDefault()
+            Fetcher.store('categories', category).then(response => {
+                console.log(response)
+            })
+        }}>
+            <div>
+                <h1>Store Category</h1>
+                <label htmlFor={'name'}>Name</label>
+
+                <input
+                    type={'text'}
+                    name={'name'}
+                    id={'name'}
+                    onChange={(value) => setCategory({...category, name: value.target.value})}
+                    value={category.data.name}
+                />
+            </div>
+
+            <div>
+                <label htmlFor={'label'}>Label</label>
+
+                <input
+                    type={'text'}
+                    name={'label'}
+                    id={'label'}
+                    onChange={(value) => setCategory({...category, label: value.target.value})}
+                    value={category.data.label}
+                />
+            </div>
+            <div>
+                <input type={'submit'} name={'submit'} value={'create'}/>
+            </div>
+        </form>
     </div>
 }
 
