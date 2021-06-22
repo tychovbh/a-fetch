@@ -1,7 +1,7 @@
-const axios = require('axios')
+import axios from 'axios'
 
 const Client = axios.create({
     withCredentials: true
 })
 
-module.exports = Client
+export default Client

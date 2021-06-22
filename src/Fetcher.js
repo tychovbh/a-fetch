@@ -1,6 +1,6 @@
-const Router = require('./Router')
-const Request = require('./Request')
-const Variables = require('./variables')
+import Router from './Router'
+import Request from './Request'
+import * as Variables from './Variables'
 
 class Fetcher {
     static api(api, debug = false) {
@@ -57,4 +57,4 @@ class Fetcher {
     }
 }
 
-module.exports = Fetcher
+export default Fetcher

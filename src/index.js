@@ -1,10 +1,7 @@
-require('js-expansion')
-const Router = require('./Router')
-const Fetcher = require('./Fetcher')
-const Client = require('./Client')
-const Request = require('./Request')
+import 'js-expansion'
+export {default as Router} from './Router'
+import Fetcher from './Fetcher'
+export {default as Client} from './Client'
+export {default as Request} from './Request'
 
-module.exports = Fetcher
-module.exports.Router = Router
-module.exports.Client = Client
-module.exports.Request = Request
+export default Fetcher

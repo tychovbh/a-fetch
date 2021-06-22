@@ -1,4 +1,4 @@
-const variables = require('./variables')
+import * as  Variables from './Variables'
 
 class Response
 {
@@ -19,7 +19,7 @@ class Response
     static index(response) {
         let data_key = 'data'
         let data = {
-            ...variables.collection,
+            ...Variables.collection,
             loading: false
         }
 
@@ -36,7 +36,7 @@ class Response
     static show(response) {
         let data_key = 'data'
         let data = {
-            ...variables.model,
+            ...Variables.model,
         }
 
         let record = response
@@ -55,7 +55,7 @@ class Response
 
     static model(response) {
         let data_key = 'data'
-        let data = {...variables.model}
+        let data = {...Variables.model}
         if (response[data_key]) {
             data = {...data, ...response}
         } else {
@@ -84,7 +84,7 @@ class Response
 
     static errorCollection(errors) {
         return {
-            ...variables.collection,
+            ...Variables.collection,
             errors,
             loading: false,
         }
@@ -92,7 +92,7 @@ class Response
 
     static errorModel(errors) {
         return {
-            ...variables.model,
+            ...Variables.model,
             errors,
             loading: false,
         }
@@ -126,4 +126,4 @@ class Response
     }
 }
 
-module.exports = Response
+export default Response

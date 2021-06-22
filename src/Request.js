@@ -1,8 +1,8 @@
-const Response = require('./Response')
-const {form, request} = require('js-expansion')
+import {form, request} from 'js-expansion'
 const is_server = typeof window === 'undefined'
-const Client = require('./Client')
-const variables = require('./variables')
+import Client from './Client'
+import Response from './Response'
+import * as Variables from './Variables'
 
 class Request {
     constructor(Router, log = false) {
@@ -21,7 +21,7 @@ class Request {
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
-            return Response.empty(type === 'index' ? variables.collection : variables.model, name)
+            return Response.empty(type === 'index' ? Variables.collection : Variables.model, name)
         }
 
         const methods = {
@@ -210,4 +210,4 @@ class Request {
     }
 }
 
-module.exports = Request
+export default Request

@@ -98,6 +98,9 @@ function App() {
                 />
             </div>
             <div>
+                <input type="file" onChange={event => setCategory({...category, thumbnail: event.target.files[0]})}/>
+            </div>
+            <div>
                 <input type={'submit'} name={'submit'} value={'create'}/>
             </div>
         </form>
