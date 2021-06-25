@@ -26,7 +26,6 @@ function App() {
         Fetcher.show('user').then(response => setUser(response))
     }, [])
 
-
     function destroy() {
         Fetcher.bearerToken('test').delete('categories', {id: 1}).then(response => {
             console.log(response)
