@@ -21,7 +21,7 @@ class Request {
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
-            throw `Route ${name} ${this.Router.api_name ? ` in API ${this.Router.api_name}`}, add your route to the Router class.`;
+            throw `Route ${name} ${this.Router.api_name ? ` in API ${this.Router.api_name}` : ''}, add your route to the Router class.`;
         }
 
         const methods = {
