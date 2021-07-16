@@ -1,6 +1,7 @@
 class Router {
     constructor() {
         this.apis = {}
+        this.api_name = null
         this.base_url = ''
         this.csrf_url = ''
         this.login_url = ''
@@ -75,6 +76,7 @@ class Router {
     api(name, base_url = '', csrf_url = '', login_url = '', logout_url = '') {
         const router = new Router()
         router.baseURL(base_url, csrf_url, login_url, logout_url)
+        router.api_name = name
         this.apis[name] = router
         return router
     }
@@ -85,6 +87,9 @@ class Router {
     }
 
     getApi(name) {
+        if (!this.apis[name]) {
+            throw `API with name ${name} is not defined, add your API to the Router class.`;
+        }
         return this.apis[name]
     }
 }
