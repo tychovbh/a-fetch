@@ -1,6 +1,6 @@
 {
   "name": "a-fetch",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Easily fetch your API",
   "main": "src/index.js",
   "repository": "https://github.com/tychovbh/a-fetch",
