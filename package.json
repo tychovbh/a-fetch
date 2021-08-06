@@ -1,6 +1,6 @@
 {
   "name": "a-fetch",
-  "version": "1.1.13-rc-7",
+  "version": "1.1.13-rc-8",
   "description": "Easily fetch your API",
   "main": "src/index.js",
   "scripts": {
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/tychovbh/a-fetch/issues"
   },
-  "homepage": "https://github.com/tychovbh/a-fetch#readme"
+  "homepage": "https://github.com/tychovbh/a-fetch#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "js-expansion": "^1.1.4"
+  }
 }
