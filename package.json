@@ -1,6 +1,6 @@
 {
   "name": "a-fetch",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Easily fetch your API",
   "main": "src/index.js",
   "type": "module",
@@ -11,7 +11,6 @@
     "publish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "js-expansion": "^1.1.4"
+    "axios": "^0.21.1"
   }
 }
