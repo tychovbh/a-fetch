@@ -1,9 +1,8 @@
 {
   "name": "a-fetch",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Easily fetch your API",
   "main": "src/index.js",
-  "type": "module",
   "repository": "https://github.com/tychovbh/a-fetch",
   "author": "Tycho van Berge Henegouwen <info@bespokeweb.nl>",
   "license": "MIT",
