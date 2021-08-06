@@ -1,0 +1,17 @@
+{
+  "name": "a-fetch-example",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Tycho van Berge Henegouwen",
+  "license": "MIT",
+  "dependencies": {
+    "a-fetch": "link:..",
+    "assert": "^2.0.0",
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,11 +1,6 @@
-class Fetcher {
-    static doSomething() {
-        console.log('Fetch')
-    }
-}
+require('js-expansion')
 
-export {default as Request} from './Request.mjs'
-export default Fetcher
-// Fetcher.Request = require('./Request')
-// module.exports = Fetcher
-
+module.exports = require('./Fetcher')
+module.exports.Router = require('./Router')
+module.exports.Client = require('./Client')
+module.exports.Request = require('./Request')
