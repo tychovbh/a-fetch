@@ -111,15 +111,16 @@ class Response
 
     static errors(error) {
         const response = error.response ? error.response.data : error.response
+
+        if (response.errors) {
+            return Response.errorMessages(response)
+        }
+
         if (!response) {
             return [{message: error}]
         }
         if (response.message) {
             return [{message: response.message}]
-        }
-
-        if (response.errors) {
-            return Response.errorMessages(response)
         }
 
         return response

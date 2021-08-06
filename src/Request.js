@@ -2,7 +2,6 @@ import {form, request} from 'js-expansion'
 const is_server = typeof window === 'undefined'
 import Client from './Client'
 import Response from './Response'
-import * as Variables from './Variables'
 
 class Request {
     constructor(Router, log = false) {
