@@ -4,6 +4,6 @@ class Fetcher {
     }
 }
 
-export {default as Request} from './Request.mjs'
+Fetcher.Request = require('./Request')
+module.exports = Fetcher
 
-export default Fetcher

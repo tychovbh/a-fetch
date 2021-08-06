@@ -4,4 +4,4 @@ class Request {
     }
 }
 
-export default new Request()
+module.exports = new Request()
