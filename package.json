@@ -1,0 +1,20 @@
+{
+  "name": "a-fetch",
+  "version": "1.1.13-rc-1",
+  "description": "Easily fetch your API",
+  "main": "src/index.mjs",
+  "type": "module",
+  "scripts": {
+    "publish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tychovbh/a-fetch.git"
+  },
+  "author": "Tycho van Berge Henegouwen <info@bespokeweb.nl>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tychovbh/a-fetch/issues"
+  },
+  "homepage": "https://github.com/tychovbh/a-fetch#readme"
+}
