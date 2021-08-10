@@ -2,7 +2,7 @@ const express = require('express')
 let assert = require('assert')
 const app = express()
 const port = 3000
-const Fetcher = require('a-fetch')
+const Fetcher = require('a-fetch').Fetcher
 const Router = require('a-fetch').Router
 const axios = require('axios')
 

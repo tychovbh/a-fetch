@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Fetcher, {Router} from 'a-fetch'
+import {Fetcher, Router} from 'a-fetch'
 
 Router.baseURL('http://localhost:8000')
     .csrfURL('/sanctum/csrf-cookie')
