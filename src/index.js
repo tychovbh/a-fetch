@@ -1,6 +1,7 @@
 require('js-expansion')
 
-exports.Fetcher = require('./Fetcher')
-exports.Router = require('./Router')
-exports.Client = require('./Client')
-exports.Request = require('./Request')
+const Fetcher = require('./Fetcher')
+const Router = require('./Router')
+const Client = require('./Client')
+const Request = require('./Request')
+module.exports = {Fetcher, Router, Client, Request}
