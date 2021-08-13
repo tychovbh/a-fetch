@@ -27,7 +27,7 @@ class Request {
             index: 'get',
             show: 'get',
             store: 'post',
-            update: 'post',
+            update: this.Router.is_laravel ? 'post' : 'put',
             delete: 'delete',
         }
 

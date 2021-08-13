@@ -8,6 +8,7 @@ class Router {
         this.logout_url = ''
         this.bearer_token = ''
         this.client = null
+        this.is_laravel = false
         this.routes = {
             show: {},
             index: {},
@@ -88,9 +89,14 @@ class Router {
 
     getApi(name) {
         if (!this.apis[name]) {
-            throw `API with name ${name} is not defined, add your API to the Router class.`;
+            throw `API with name ${name} is not defined, add your API to the Router class.`
         }
         return this.apis[name]
+    }
+
+    laravel() {
+        this.is_laravel = true
+        return this
     }
 }
 
