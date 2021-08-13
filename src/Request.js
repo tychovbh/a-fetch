@@ -20,7 +20,7 @@ class Request {
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
-            throw `Route ${name} ${this.Router.api_name ? ` in API ${this.Router.api_name}` : ''}, add your route to the Router class.`;
+            throw `Route ${name} ${this.Router.api_name ? ` in API ${this.Router.api_name}` : ''}, add your route to the Router class.`
         }
 
         const methods = {
@@ -48,7 +48,7 @@ class Request {
         let options = {
             url,
             method,
-            headers
+            headers,
         }
 
         if (['post', 'put'].includes(method)) {
@@ -160,7 +160,6 @@ class Request {
                 return data
             })
             .catch((error) => {
-                console.log(error)
                 error = Response.errors(error)
                 return Response.errorModel(error)
             })
@@ -187,10 +186,18 @@ class Request {
 
     login(params = {}) {
         return this.fetch('post', this.Router.login_url, params)
+            .catch((error) => {
+                error = Response.errors(error)
+                return Response.errorModel(error)
+            })
     }
 
     logout(params = {}) {
         return this.fetch('post', this.Router.logout_url, params)
+            .catch((error) => {
+                error = Response.errors(error)
+                return Response.errorModel(error)
+            })
     }
 
     records(records = [], key = 'id') {
