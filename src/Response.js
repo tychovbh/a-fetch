@@ -115,7 +115,7 @@ class Response
         if (!response) {
             return [{message: error}]
         }
-        
+
         if (response.errors) {
             return Response.errorMessages(response)
         }

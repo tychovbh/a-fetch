@@ -27,7 +27,7 @@ class Request {
             index: 'get',
             show: 'get',
             store: 'post',
-            update: 'put',
+            update: 'post',
             delete: 'delete',
         }
 
