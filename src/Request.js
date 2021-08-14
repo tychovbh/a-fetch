@@ -186,6 +186,9 @@ class Request {
 
     login(params = {}) {
         return this.fetch('post', this.Router.login_url, params)
+            .then(response => {
+                return Response.model(response.data)
+            })
             .catch((error) => {
                 error = Response.errors(error)
                 return Response.errorModel(error)
@@ -194,6 +197,9 @@ class Request {
 
     logout(params = {}) {
         return this.fetch('post', this.Router.logout_url, params)
+            .then(response => {
+                return Response.model(response.data)
+            })
             .catch((error) => {
                 error = Response.errors(error)
                 return Response.errorModel(error)
