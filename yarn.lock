@@ -74,10 +74,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-js-expansion@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/js-expansion/-/js-expansion-1.1.4.tgz#e7a0702d7d23135b2334a89c128df4c22c9b09ab"
-  integrity sha512-lLnxCcgj/seYTNprcT1MST6WceA+8ikHYbo7Ftmnvy5iNrSvgvl/ZbALluiXVanPpCZ59ihlkffTEfSlwmZYBw==
+js-expansion@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/js-expansion/-/js-expansion-1.1.5.tgz#6cf22be643bd634a3091ff836785ac300794eff7"
+  integrity sha512-SbwNkRDDioz3Y2rLyFS1Xw91jGkNpQTXY+6K3QofFaNS7Mg9FMoZdpKDEjAIsICmf+iTskTWPDIl9mUqiqaC9Q==
   dependencies:
     form-data "^4.0.0"
     qs "^6.10.1"
