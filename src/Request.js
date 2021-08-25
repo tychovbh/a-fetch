@@ -17,6 +17,12 @@ class Request {
     }
 
     prepareFetch(type, name, params = {}) {
+        for (let key in params) {
+            if (params[key] === null) {
+                delete params[key]
+            }
+        }
+        
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
@@ -45,12 +51,6 @@ class Request {
     }
 
     fetch(method, url, params = {}, headers = {}) {
-        for (let key in params) {
-            if (params[key] === null) {
-                delete params[key]
-            }
-        }
-
         let options = {
             url,
             method,
