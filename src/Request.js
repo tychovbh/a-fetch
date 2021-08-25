@@ -45,6 +45,12 @@ class Request {
     }
 
     fetch(method, url, params = {}, headers = {}) {
+        for (let key in params) {
+            if (params[key] === null) {
+                delete params[key]
+            }
+        }
+
         let options = {
             url,
             method,
