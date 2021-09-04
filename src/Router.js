@@ -7,6 +7,7 @@ class Router {
         this.login_url = ''
         this.logout_url = ''
         this.bearer_token = ''
+        this.cookie = ''
         this.client = null
         this.is_laravel = false
         this.routes = {
@@ -71,6 +72,11 @@ class Router {
 
     bearerToken(bearer_token) {
         this.bearer_token = bearer_token
+        return this
+    }
+
+    bearTokenFromCookie(cookie) {
+        this.cookie = cookie
         return this
     }
 

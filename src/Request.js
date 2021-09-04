@@ -1,7 +1,7 @@
 const is_server = typeof window === 'undefined'
 const Client = require('./Client')
 const Response = require('./Response')
-const {form, request} = require('js-expansion')
+const {form, request, Cookies} = require('js-expansion')
 
 class Request {
     constructor(Router, log = false) {
@@ -22,7 +22,7 @@ class Request {
                 delete params[key]
             }
         }
-        
+
         const route = this.Router.routes[type][name] || {}
 
         if (!route.request) {
@@ -84,6 +84,10 @@ class Request {
     config(options) {
         let config = {headers: options.headers || {}}
 
+        if (this.Router.cookie !== '') {
+            config.headers.Authorization = `Bearer ${Cookies.withExpress(this.req, this.res).read(this.Router.cookie)}`
+        }
+
         if (this.bearer_token !== '') {
             config.headers.Authorization = `Bearer ${this.bearer_token}`
         }
@@ -92,7 +96,11 @@ class Request {
     }
 
     csrfRequired(options) {
-        return !is_server && this.Router.csrf_url && options.method !== 'get' && !document.cookie.includes('XSRF-TOKEN')
+        if (is_server || !this.Router.csrf_url || options.method === 'get') {
+            return false
+        }
+
+        return !Cookies.read('XSRF-TOKEN')
     }
 
     requestWithCsrf(options) {
@@ -224,6 +232,12 @@ class Request {
 
     bearerToken(bearer_token) {
         this.bearer_token = bearer_token
+        return this
+    }
+
+    withExpress(req, res) {
+        this.req = req
+        this.res = res
         return this
     }
 }

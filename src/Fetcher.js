@@ -48,6 +48,10 @@ class Fetcher {
         return Fetcher.request(debug).bearerToken(token)
     }
 
+    static withExpress(req, res) {
+        return Fetcher.request().withExpress(req, res)
+    }
+
     static collection() {
         return Variables.collection
     }
