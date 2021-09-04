@@ -1,6 +1,6 @@
 {
   "name": "a-fetch",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Easily fetch your API",
   "main": "src/index.js",
   "scripts": {
