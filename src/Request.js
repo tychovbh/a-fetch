@@ -85,7 +85,10 @@ class Request {
         let config = {headers: options.headers || {}}
 
         if (this.Router.cookie !== '') {
-            config.headers.Authorization = `Bearer ${Cookies.withExpress(this.req, this.res).read(this.Router.cookie)}`
+            const cookie = Cookies.withExpress(this.req, this.res).read(this.Router.cookie)
+            if (cookie) {
+                config.headers.Authorization = `Bearer ${cookie}`
+            }
         }
 
         if (this.bearer_token !== '') {
