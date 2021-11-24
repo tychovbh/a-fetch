@@ -8,7 +8,7 @@ class Request {
         this.Router = Router
         this.log = log
         this.client = Router.client || Client
-        this.bearer_token = Router.bearer_token
+        this.bearer_token = Router.bearer_token || ''
         this.data = {
             data: [],
             key: 'id',
@@ -16,7 +16,7 @@ class Request {
         }
     }
 
-    prepareFetch(type, name, params = {}) {
+    prepareFetch(type, name, params = {}, headers = {}) {
         for (let key in params) {
             if (params[key] === null) {
                 delete params[key]
@@ -39,8 +39,6 @@ class Request {
 
         const method = methods[type]
         const url = request(method, route.request, params)
-
-        let headers = {}
 
         if (route.options.form_data) {
             headers = {'Content-Type': 'multipart/form-data'}
@@ -119,8 +117,8 @@ class Request {
         })
     }
 
-    index(name, params = {}) {
-        return this.prepareFetch('index', name, params)
+    index(name, params = {}, headers = {}) {
+        return this.prepareFetch('index', name, params, headers)
             .then(response => {
                 let data = Response.index(response.data)
 
@@ -133,8 +131,8 @@ class Request {
             .catch(error => Response.errorCollection(Response.errors(error)))
     }
 
-    show(name, params = {}) {
-        return this.prepareFetch('show', name, params)
+    show(name, params = {}, headers = {}) {
+        return this.prepareFetch('show', name, params, headers)
             .then(response => {
                 response = response.data
                 let data = Response.show(response)
@@ -151,17 +149,17 @@ class Request {
             })
     }
 
-    store(name, params = {}) {
-        return this.save('store', name, params)
+    store(name, params = {}, headers = {}) {
+        return this.save('store', name, params, headers)
     }
 
-    update(name, params = {}) {
+    update(name, params = {}, headers = {}) {
         params._method = 'put'
-        return this.save('update', name, params)
+        return this.save('update', name, params, headers)
     }
 
-    save(type, name, params = {}) {
-        return this.prepareFetch(type, name, params)
+    save(type, name, params = {}, headers = {}) {
+        return this.prepareFetch(type, name, params, headers)
             .then(response => {
                 if (this.log) {
                     console.log('Save response', response.data)
@@ -182,8 +180,8 @@ class Request {
             })
     }
 
-    delete(name, params = {}) {
-        return this.prepareFetch('delete', name, params)
+    delete(name, params = {}, headers = {}) {
+        return this.prepareFetch('delete', name, params, headers)
             .then(response => {
                 response = response.data
 
@@ -201,8 +199,8 @@ class Request {
             })
     }
 
-    login(params = {}) {
-        return this.fetch('post', this.Router.login_url, params)
+    login(params = {}, headers = {}) {
+        return this.fetch('post', this.Router.login_url, params, headers)
             .then(response => {
                 return Response.model(response.data)
             })
@@ -212,8 +210,8 @@ class Request {
             })
     }
 
-    logout(params = {}) {
-        return this.fetch('post', this.Router.logout_url, params)
+    logout(params = {}, headers = {}) {
+        return this.fetch('post', this.Router.logout_url, params, headers)
             .then(response => {
                 return Response.model(response.data)
             })
