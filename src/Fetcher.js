@@ -12,32 +12,32 @@ class Fetcher {
         return new Request(Router, debug)
     }
 
-    static index(name, params = {}, records = [], debug = false) {
-        return Fetcher.request(debug).index(name, params, records)
+    static index(name, params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).index(name, params, headers)
     }
 
-    static show(name, params = {}, debug = false) {
-        return Fetcher.request(debug).show(name, params)
+    static show(name, params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).show(name, params, headers)
     }
 
-    static store(name, params = {}, debug = false) {
-        return Fetcher.request(debug).store(name, params)
+    static store(name, params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).store(name, params, headers)
     }
 
-    static update(name, params = {}, debug = false) {
-        return Fetcher.request(debug).update(name, params)
+    static update(name, params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).update(name, params, headers)
     }
 
-    static delete(name, params = {}, debug = false) {
-        return Fetcher.request(debug).delete(name, params)
+    static delete(name, params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).delete(name, params, headers)
     }
 
-    static login(params = {}, debug = false) {
-        return Fetcher.request(debug).login(params)
+    static login(params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).login(params, headers)
     }
 
-    static logout(params = {}, debug = false) {
-        return Fetcher.request(debug).logout(params)
+    static logout(params = {}, headers = {}, debug = false) {
+        return Fetcher.request(debug).logout(params, headers)
     }
 
     static records(records = [], key = 'id', debug = false) {
