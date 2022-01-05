@@ -174,6 +174,7 @@ app.get('/', (req, res) => {
 
     let delete_collection = [{id: 1, title: 'test1'}, {id: 2, title: 'test2'}]
     Fetcher.records(delete_collection).delete('todos', {id: 1}).then(response => {
+        console.log(response)
         assert.strictEqual(!!response.data, true, 'Cannot delete')
         assert.deepStrictEqual(response.records, [delete_collection[1]], 'Cannot delete')
     })

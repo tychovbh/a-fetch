@@ -68,14 +68,14 @@ class Response
         }
     }
 
-    static records(method, response, records, key) {
+    static records(method, response, records, value_key, records_key) {
         let data_key = 'data'
         if (response[data_key]) {
-            const value = method === 'delete' ? response[data_key][key] : response[data_key]
-            records = records.clone()[method](value, key)
+            const value = method === 'delete' ? response[data_key][value_key] : response[data_key]
+            records = records.clone()[method](value, records_key)
         } else {
-            const value = method === 'delete' ? response[key] : response
-            records = records.clone()[method](value, key)
+            const value = method === 'delete' ? response[value_key] : response
+            records = records.clone()[method](value, records_key)
         }
 
 

@@ -40,8 +40,8 @@ class Fetcher {
         return Fetcher.request(debug).logout(params, headers)
     }
 
-    static records(records = [], key = 'id', debug = false) {
-        return Fetcher.request(debug).records(records, key)
+    static records(records = [], value_key = 'id', records_key = 'id', debug = false) {
+        return Fetcher.request(debug).records(records, value_key, records_key)
     }
 
     static bearerToken(token, debug = false) {
