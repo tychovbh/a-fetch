@@ -188,7 +188,7 @@ class Request {
                 let data = Response.model(response)
 
                 if (this.data.enabled) {
-                    data.records = Response.records('delete', params, this.data.records, this.data.key)
+                    data.records = Response.records('delete', params, this.data.records, this.data.value_key, this.data.records_key)
                 }
 
                 return data
@@ -221,9 +221,10 @@ class Request {
             })
     }
 
-    records(records = [], key = 'id') {
+    records(records = [], value_key = 'id', records_key = 'id') {
         this.data = {
-            key,
+            value_key,
+            records_key,
             records,
             enabled: true,
         }
